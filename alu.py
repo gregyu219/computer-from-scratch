@@ -12,12 +12,23 @@ f - function code, 1 = Add, 0 = And
 no - negate the output
 
 OUTPUTS
-zr - True iff out == 0
+output[16]
+zr - True iff out == 0 flag
 ng - True iff out < 0
 '''
 
 def zero_input(input):
     return [0] * input.length()
+
+def check_zr(output):
+    for i in range(len(output)):
+        if output[i] == 1:
+            return 0
+        
+    return 1
+
+def check_ng(output):
+    return output[0] == 1
 
 
 def alu(x, y, zx, nx, zy, ny, f, no):
@@ -44,6 +55,10 @@ def alu(x, y, zx, nx, zy, ny, f, no):
     if no:
         output = not_gate_16_bit(output)
 
-    zr = 1 if output == 0 else 0
-    ng = 1 if output < 0 else 0
+    zr = 1 if check_zr(output) else 0
+    ng = 1 if check_ng(output) else 0
     return output, zr, ng
+
+a = [0] * 16
+b = [0] * 16
+print(alu(a, b, 0, 0, 0, 0, 0, 0))
