@@ -1,42 +1,27 @@
-
-# a and b must only be an array of size 0
-
-
-def or_gate_64_bit(a, b):
-    res = [None] * 64
-    for i in range(64):
-        res[i] = a[i] or b[i]
-    return res
-
 def or_gate(a, b):
     return a or b
-
-
-def and_gate_64_bit(a, b):
-    res = [None] * 64
-    for i in range(64):
-        res[i] = a[i] and b[i]
-    return res
 
 def and_gate(a, b):
     return a and b
 
-def not_gate_64_bit(input):
-    res = [None] * 64
-    for i in range(64):
-        res[i] = not input[i]
-    return res
-
-def xor_gate_64_bit(a, b):
-    res = [None] * 64
-    for i in range(64):
-        res[i] = a[i] ^ b[i]
-    return res
-
-
 def xor_gate(a, b):
     return a ^ b
 
+def not_gate(input):
+    return not input
+
+# return sum, carry
+def half_adder(a, b):
+    sum = xor_gate(a, b)
+    carry = and_gate(a, b)
+    return (sum, carry)
+
+# return sum, carry
+def full_adder(a, b, carry_input):
+    first_sum, first_carry = half_adder(a, b)
+    (second_sum, second_carry) = half_adder(first_sum, carry_input)
+    carry_output = or_gate(first_carry, second_carry)
+    return (second_sum, carry_output)
 
 def mux(a, b, sel):
     if sel == 0:
