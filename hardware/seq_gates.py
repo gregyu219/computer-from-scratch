@@ -1,15 +1,17 @@
 class Register_16_bit:
     def __init__(self):
-        self.data = [None] * 16
+        self.data = [0] * 16
 
     # input is array length 16, load is boolean
     def load(self, input, load):
-        if load:
+        if load and len(input) == 16:
             self.data = input
 
 class Ram_8:
     def __init__(self):
-        self.memory = [Register_16_bit()] * 8
+        self.memory = [None] * 8
+        for i in range(len(self.memory)):
+            self.memory[i] = Register_16_bit()
     
 
     # input is array length 16, load is boolean
@@ -19,7 +21,10 @@ class Ram_8:
 
 class Ram_16k:
     def __init__(self):
-        self.memory = [Register_16_bit()] * 16384
+        self.memory = [None] * 16384
+        for i in range(len(self.memory)):
+            self.memory[i] = Register_16_bit()
+
     
 
     # input is array length 16, load is boolean
@@ -31,6 +36,15 @@ class Ram_16k:
 class Program_counter:
     def __init__(self):
         self.count = Register_16_bit()
+
+
+# ram = Ram_8()
+# new_data = [1] * 16
+# ram.write(new_data,2,True)
+
+# print(ram.memory[1].data)
+# print(ram.memory[2].data)
+# print(ram.memory[3].data)
 
 
 
