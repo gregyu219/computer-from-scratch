@@ -1,4 +1,4 @@
-from chips import adder_16_bit, not_gate_16_bit, and_gate_16_bit
+from hardware.chips import adder_16_bit, not_gate_16_bit, and_gate_16_bit
 '''
 16 bits!
 INPUTS
@@ -17,21 +17,14 @@ zr - True iff out == 0 flag
 ng - True iff out < 0
 '''
 
-def zero_input(input):
-    return [0] * input.length()
-
-def check_zr(output):
-    for i in range(len(output)):
-        if output[i] == 1:
-            return 0
-        
-    return 1
-
-def check_ng(output):
-    return output[0] == 1
+### ALU functions ###
 
 
-def alu(x, y, zx, nx, zy, ny, f, no):
+### End of ALU functions ###
+
+
+### ALU implementation
+def alu_16_bit(x, y, zx, nx, zy, ny, f, no):
     if zx: 
         x = zero_input(x)
 
@@ -59,6 +52,20 @@ def alu(x, y, zx, nx, zy, ny, f, no):
     ng = 1 if check_ng(output) else 0
     return output, zr, ng
 
-a = [0] * 16
-b = [0] * 16
-print(alu(a, b, 0, 0, 0, 0, 0, 0))
+def zero_input(input):
+    return [0] * input.length()
+
+def check_zr(output):
+    for i in range(len(output)):
+        if output[i] == 1:
+            return 0
+        
+    return 1
+
+def check_ng(output):
+    return output[0] == 1
+
+# a = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1]
+# b = [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1]
+# c = [1] * 16
+# print(alu_16_bit(a, c, 0, 0, 0, 0, 0, 0))

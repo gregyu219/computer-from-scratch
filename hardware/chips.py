@@ -1,4 +1,4 @@
-from gates import or_gate, and_gate, not_gate, full_adder
+from hardware.gates import or_gate, and_gate, not_gate, full_adder
 
 # 16 bit chips
 # All inputs must be an array of length 16
